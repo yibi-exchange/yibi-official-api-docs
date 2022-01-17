@@ -22,4 +22,4 @@
   "data": "response data..."
 }
 ```
-- Error code please see[Error Code](/api/REST_error_code.md)
+- Error code please see[Error Code](/v1/api/REST_error_code.md)
