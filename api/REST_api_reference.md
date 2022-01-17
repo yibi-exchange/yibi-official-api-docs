@@ -98,6 +98,8 @@ asks | decimal | An array containing 2 elements. The ask price and quantity for 
 Data example:
 ```
 /* GET /v1/orderBook?tickerId=BTC_USDT */
+```
+```json
 {
 "code": "1",
 "success": true,
@@ -146,6 +148,8 @@ type | string | Used to determine the type of the transaction that was completed
 Data example:
 ```
 /* GET /v1/historicalTrades?tickerId=BTC_USDT */
+```
+```json
 {
 "code": "1",
 "success": true,
@@ -199,6 +203,8 @@ low | decimal | Rolling 24-hours lowest transaction price
 Data example:
 ```
 /* GET /v1/ticker?tickerId=BTC_USDT */
+```
+```json
 {
 "code": "1",
 "success": true,
@@ -242,6 +248,8 @@ locked | decimal | Freeze balance
 Data example:
 ```
 /* GET /v1/user/getBalance?apiKey=1&sign=2 */
+```
+```json
 {
 "code": "1",
 "success": true,
@@ -249,7 +257,7 @@ Data example:
 "data": [{
     "asset": "BTC",
     "free": "0",
-    "locked": "0",
+    "locked": "0"
     }]
 }
 ```
@@ -317,15 +325,16 @@ Data example:
   "success": true,
   "msg": null,
   "data": [
-    {
-      "createTime": 1534301500000,
-      "price": 0.045662,
-      "qty": 0.253,
-      "id": 1440592,
-      "type": 1,
-      "tradeQty": 0,
-      "status": 1
-  }]
+        {
+          "createTime": 1534301500000,
+          "price": 0.045662,
+          "qty": 0.253,
+          "id": 1440592,
+          "type": 1,
+          "tradeQty": 0,
+          "status": 1
+      }
+  ]
 }
 ```
 
