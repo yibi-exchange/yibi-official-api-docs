@@ -22,4 +22,4 @@
   "data": "response data..."
 }
 ```
-- 错误代码请参考[错误代码](/api-zh/REST_error_code.md)
+- 错误代码请参考[错误代码](/v1/api-zh/REST_error_code.md)

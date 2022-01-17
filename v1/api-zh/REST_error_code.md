@@ -5,7 +5,7 @@ code = 1，表示请求成功，其它均为错误，错误码请参考以下表
 | ------ | ------ |
 | -1001 | 请求超出限制，如果没有API_KEY，请尽快[申请API_KEY](https://yibi.co/cn/apiManage) |
 | -1002 | API_KEY不正确 |
-| -1003 | 签名错误，请参考[签名认证](/api-zh/REST_authentication.md) |
+| -1003 | 签名错误，请参考[签名认证](/v1/api-zh/REST_authentication.md) |
 | -1004 | 请求的时间戳已过期 |
 | -1005 | 没有权限，请求交易和订单API需要验证API_KEY |
 | -1006 | 账户异常，请联系客服 |
