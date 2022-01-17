@@ -32,7 +32,7 @@ Data example:
 }
 ```
 
-## GET /v1/ticker  
+## GET /v1/tickers  
 Get the market of all exchange pairs.
 
 Request: None
