@@ -32,7 +32,7 @@ target | string | 市场币种
 }
 ```
 
-## GET /v1/ticker  
+## GET /v1/tickers  
 获取所有交易对信息
 
 请求参数:  无
