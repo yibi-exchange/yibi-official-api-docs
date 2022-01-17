@@ -15,7 +15,7 @@ https://api.yibi.co
 
 ## REST行情、交易API
 
-* [签名认证](/api-zh/REST_authentication.md)
-* [请求及返回格式说明](/api-zh/REST_request_response.md)
-* [API Reference](/api-zh/REST_api_reference.md)
-* [错误代码](/api-zh/REST_error_code.md)
+* [签名认证](/v1/api-zh/REST_authentication.md)
+* [请求及返回格式说明](/v1/api-zh/REST_request_response.md)
+* [API Reference](/v1/api-zh/REST_api_reference.md)
+* [错误代码](/v1/api-zh/REST_error_code.md)

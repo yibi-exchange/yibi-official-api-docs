@@ -10,12 +10,12 @@ https://api.yibi.co
 
 ### Apply for APP_KEY
 
-[Apply for YIBI trading market API_KEY](https://yibi.co/en/apiManage)
+ [Apply for YIBI trading market API_KEY](https://yibi.co/cn/apiManage)
 
 
 ## REST Quotes, Trading API
 
-* [Signature Authentication](/api/REST_authentication.md)
-* [Request and return format description](/api/REST_request_response.md)
-* [API Reference](/api/REST_api_reference.md)
-* [Error code](/api/REST_error_code.md)
+* [Signature Authentication](/v1/api-zh/REST_authentication.md)
+* [Request and return format description](/v1/api-zh/REST_request_response.md)
+* [API Reference](/v1/api-zh/REST_api_reference.md)
+* [Error code](/v1/api-zh/REST_error_code.md)
