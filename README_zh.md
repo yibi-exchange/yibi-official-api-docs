@@ -10,7 +10,7 @@ https://api.yibi.co
 
 ### 申请APP_KEY
 
-一币的api_key需要和EOS账号绑定，[申请一币交易行情API_KEY](https://yibi.co/cn/apiManage)  
+[申请一币交易行情API_KEY](https://yibi.co/cn/apiManage)  
 
 
 ## REST行情、交易API
