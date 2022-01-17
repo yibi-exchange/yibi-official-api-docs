@@ -10,12 +10,12 @@ https://api.yibi.co
 
 ### Apply for APP_KEY
 
-The api_key of YIBI needs to be bound to the EOS account, [Apply for YIBI trading market API_KEY](https://yibi.co/cn/apiManage)
+[Apply for YIBI trading market API_KEY](https://yibi.co/en/apiManage)
 
 
 ## REST Quotes, Trading API
 
-* [Signature Authentication](/api-zh/REST_authentication.md)
-* [Request and return format description](/api-zh/REST_request_response.md)
-* [API Reference](/api-zh/REST_api_reference.md)
-* [Error code](/api-zh/REST_error_code.md)
+* [Signature Authentication](/api/REST_authentication.md)
+* [Request and return format description](/api/REST_request_response.md)
+* [API Reference](/api/REST_api_reference.md)
+* [Error code](/api/REST_error_code.md)
