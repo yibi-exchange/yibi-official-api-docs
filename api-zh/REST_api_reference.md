@@ -15,7 +15,7 @@ target | string | 市场币种
 
 
 示例数据：
-```
+```json
 {
 "code": "1",
 "success": true,
@@ -53,7 +53,7 @@ high | decimal | 24小时内最高成交价格
 low | decimal | 24小时内最低成交价格
 
 示例数据：
-```
+```json
 {
 "code": "1",
 "success": true,
@@ -98,6 +98,8 @@ asks | decimal | 包含 2 个元素的数组。 每个订单的报价和数量
 示例数据：
 ```
 /* GET /v1/orderBook?tickerId=BTC_USDT */
+```
+```json
 {
 "code": "1",
 "success": true,
@@ -133,7 +135,7 @@ tickerId | String | 市场名称 币种名称后面需要加"_"和板块名称(B
 
 参数名 | 类型 | 描述 
 ------------ | ------------ | ------------
-tickerId | int | 成交记录id
+tradeId | int | 成交记录id
 price | decimal | 交易价格
 base_volume | decimal | 成交数量
 target_volume | decimal | 成交额
@@ -143,6 +145,8 @@ type | string | buy 是买入，sell是卖出
 示例数据：
 ```
 /* GET /v1/historicalTrades?tickerId=BTC_USDT */
+```
+```json
 {
 "code": "1",
 "success": true,
@@ -196,6 +200,8 @@ low | decimal | 24小时内最低成交价格
 示例数据：
 ```
 /* GET /v1/ticker?tickerId=BTC_USDT */
+```
+```json
 {
 "code": "1",
 "success": true,
@@ -239,6 +245,8 @@ locked | decimal | 冻结余额
 示例数据：
 ```
 /* GET /v1/user/getBalance?apiKey=1&sign=2 */
+```
+```json
 {
 "code": "1",
 "success": true,
@@ -246,7 +254,7 @@ locked | decimal | 冻结余额
 "data": [{
     "asset": "BTC",
     "free": "0",
-    "locked": "0",
+    "locked": "0"
     }]
 }
 ```
@@ -274,17 +282,17 @@ qty | string | 数量
 data | integer | 订单id
 
 示例数据：
-```
+```json
 {
   "code": "1",
   "success": true,
-  "data": 11111
+  "data": 10000001
 }
 ```
 
 ## GET /v1/user/queryOrder
 
-现货交易下单
+查询币币订单
 
 请求参数:  
 
@@ -309,7 +317,7 @@ status | integer | 状态-1已撤单 0已下单 1待撮合 2撮合中 3已完成
 
 
 示例数据：
-```
+```json
 {
   "code": "1",
   "success": true,
@@ -323,7 +331,7 @@ status | integer | 状态-1已撤单 0已下单 1待撮合 2撮合中 3已完成
       "type": 1,
       "tradeQty": 0,
       "status": 1
-  }
+  }]
 }
 ```
 
@@ -340,7 +348,7 @@ sign | string | 参数签名
 id | integer | 订单id
 
 示例数据：
-```
+```json
 {
   "code": "1",
   "success": true,
