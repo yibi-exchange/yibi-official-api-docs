@@ -325,7 +325,7 @@ Data example:
       "type": 1,
       "tradeQty": 0,
       "status": 1
-  }
+  }]
 }
 ```
 
