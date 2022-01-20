@@ -1,38 +1,25 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [行情API](#%E8%A1%8C%E6%83%85api)
+  - [GET /v1/summary](#get-v1summary)
+  - [GET /v1/assets](#get-v1assets)
+  - [GET /v1/ticker](#get-v1ticker)
+  - [GET /v1/orderBook](#get-v1orderbook)
+  - [GET /v1/historicalTrades](#get-v1historicaltrades)
+  - [GET /v1/pairs](#get-v1pairs)
+- [交易API](#%E4%BA%A4%E6%98%93api)
+  - [GET /v1/user/getBalance](#get-v1usergetbalance)
+  - [GET /v1/user/addOrder](#get-v1useraddorder)
+  - [GET /v1/user/queryOrder](#get-v1userqueryorder)
+  - [GET /v1/user/cancelOrder](#get-v1usercancelorder)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # 行情API
 
-## GET /v1/pairs  
-获取所有交易对列表
-
-请求参数： 无  
-
-返回参数： Array，结构如下  
-
-参数名 | 类型 | 描述 
------------- | ------------ | ------------
-tickerId | string | 交易对名称
-base | string | 交易币种
-target | string | 市场币种
-
-
-示例数据：
-```json
-{
-"code": "1",
-"success": true,
-"msg": null,
-"data": [{
-    "tickerId": "ETH_USDT",
-    "base": "ETH",
-    "target": "USDT"
-}, {
-    "tickerId": "BTC_USDT",
-    "base": "BTC",
-    "target": "USDT"
-  }]
-}
-```
-
-## GET /v1/tickers  
+## GET /v1/summary
 获取所有交易对信息
 
 请求参数:  无
@@ -70,6 +57,98 @@ low | decimal | 24小时内最低成交价格
     "high": "49047.4",
     "low": "48493.24"
     }]
+}
+```
+
+## GET /v1/assets  
+获取交易所可用的每种货币的详细摘要
+
+请求参数:  无
+
+返回参数: Array，结构如下  
+
+参数名 | 类型 | 描述 
+------------ | ------------ | ------------
+name | string | 币种全称
+symbol | string | 币种名称
+unifiedCryptoAssetId | integer | 唯一币种id
+canWithdraw | boolean | 是否允许提币
+canDeposit | boolean | 	是否允许充值
+minWithdraw | decimal | 最低提币数量限额
+maxWithdraw | decimal | 最高提币数量限额
+maker_fee | decimal | 买入手续费率
+taker_fee | decimal | 卖出手续费率
+                      
+示例数据：
+```json
+{
+    "code":"1",
+    "success":true,
+    "msg":null,
+    "data":[
+        {
+            "name":"Ethereum",
+            "unifiedCryptoAssetId":"1027",
+            "canWithdraw":"true",
+            "canDeposit":"true",
+            "minWithdraw":0.1,
+            "maxWithdraw":20,
+            "symbol":"ETH",
+            "makerFee":0.002,
+            "takerFee":0.002
+        },
+        {
+            "name":"Bitcoin",
+            "unifiedCryptoAssetId":"1",
+            "canWithdraw":"true",
+            "canDeposit":"true",
+            "minWithdraw":0.0006,
+            "maxWithdraw":2,
+            "symbol":"BTC",
+            "makerFee":0.002,
+            "takerFee":0.002
+        }
+    ]
+}
+```
+
+## GET /v1/ticker  
+获取交易所上每个可用市场对的 24 小时定价和交易量数据。
+
+请求参数:  无
+
+返回参数: Array，结构如下  
+
+参数名 | 类型 | 描述 
+------------ | ------------ | ------------
+tickerId | string | 交易对名称
+lastPrice | decimal | 最后成交价格
+baseVolume | decimal | 24小时内交易币成交数量
+targetVolume | decimal | 24小时内成交额
+isFrozen | integer | 0 交易对开启 1交易对下架
+                      
+Data example:
+```json
+{
+    "code":"1",
+    "success":true,
+    "msg":null,
+    "data":[
+        {
+            "tickerId":"BTC_USDT",
+            "lastPrice":"42065.72",
+            "baseVolume":"1084.92",
+            "targetVolume":"45448520.44",
+            "isFrozen":0
+        },
+        {
+            "tickerId":"ETH_USDT",
+            "lastPrice":"3147.16",
+            "baseVolume":"9659.14",
+            "targetVolume":"30085798.27",
+            "isFrozen":0
+        }
+    ]
 }
 ```
 
@@ -172,52 +251,35 @@ type | string | buy 是买入，sell是卖出
 }
 ```
 
-## GET /v1/ticker
+## GET /v1/pairs  
+获取所有交易对列表
 
-获取单个市场信息
+请求参数： 无  
 
-请求参数:  
-
-参数名 | 类型 | 描述 
------------- | ------------ | ------------
-tickerId | string | 交易对名称
-
-返回参数: Object，结构如下  
+返回参数： Array，结构如下  
 
 参数名 | 类型 | 描述 
 ------------ | ------------ | ------------
 tickerId | string | 交易对名称
-baseCurrency | string | 交易币种
-targetCurrency | string | 市场币种
-lastPrice | decimal | 	最新价格
-baseVolume | decimal | 24小时内交易币成交数量
-targetVolume | decimal | 24小时内成交额
-bid | decimal | 买一价格
-ask | decimal | 卖一价格
-high | decimal | 24小时内最高成交价格
-low | decimal | 24小时内最低成交价格
+base | string | 交易币种
+target | string | 市场币种
+
 
 示例数据：
-```
-/* GET /v1/ticker?tickerId=BTC_USDT */
-```
 ```json
 {
 "code": "1",
 "success": true,
 "msg": null,
-"data": {
+"data": [{
+    "tickerId": "ETH_USDT",
+    "base": "ETH",
+    "target": "USDT"
+}, {
     "tickerId": "BTC_USDT",
-    "baseCurrency": "BTC",
-    "targetCurrency": "USDT",
-    "lastPrice": "48527.91",
-    "baseVolume": "229.852284",
-    "targetVolume": "11212881.13491958",
-    "bid": "48735.03",
-    "ask": "45799.32",
-    "high": "49047.4",
-    "low": "48493.24"
-    }
+    "base": "BTC",
+    "target": "USDT"
+  }]
 }
 ```
 
