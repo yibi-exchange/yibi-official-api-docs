@@ -1,38 +1,26 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Market API](#market-api)
+  - [GET /v1/summary](#get-v1summary)
+  - [GET /v1/assets](#get-v1assets)
+  - [GET /v1/ticker](#get-v1ticker)
+  - [GET /v1/orderBook](#get-v1orderbook)
+  - [GET /v1/historicalTrades](#get-v1historicaltrades)
+  - [GET /v1/ticker](#get-v1ticker-1)
+  - [GET /v1/pairs](#get-v1pairs)
+- [Trade API](#trade-api)
+  - [GET /v1/user/getBalance](#get-v1usergetbalance)
+  - [GET /v1/user/addOrder](#get-v1useraddorder)
+  - [GET /v1/user/queryOrder](#get-v1userqueryorder)
+  - [GET /v1/user/cancelOrder](#get-v1usercancelorder)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Market API
 
-## GET /v1/pairs  
-Get the list of all exchange pairs.
-
-Request: None
-
-Response: Object[]
-
-Name | Data type | Description 
------------- | ------------ | ------------
-tickerId | string | Exchange pair name
-base | string | Symbol/currency code of a the base crypto asset, eg. BTC
-target | string | Symbol/currency code of the target crypto asset, eg. USDT
-
-
-Data example:
-```json
-{
-"code": "1",
-"success": true,
-"msg": null,
-"data": [{
-    "tickerId": "ETH_USDT",
-    "base": "ETH",
-    "target": "USDT"
-}, {
-    "tickerId": "BTC_USDT",
-    "base": "BTC",
-    "target": "USDT"
-  }]
-}
-```
-
-## GET /v1/tickers  
+## GET /v1/summary  
 Get the market of all exchange pairs.
 
 Request: None
@@ -70,6 +58,98 @@ Data example:
     "high": "49047.4",
     "low": "48493.24"
     }]
+}
+```
+
+## GET /v1/assets  
+Get a detailed summary for each currency available on the exchange.
+
+Request: None
+
+Response: Object[]
+
+Name | Data type | Description 
+------------ | ------------ | ------------
+name | string | Full name of cryptocurrency.
+symbol | string | currency code, eg. BTC
+unifiedCryptoAssetId | integer | Unified cryptoasset id.
+canWithdraw | boolean | Identifies whether withdrawals are enabled or disabled.
+canDeposit | boolean | 	Identifies whether deposits are enabled or disabled.
+minWithdraw | decimal | Identifies the single minimum withdrawal amount of a cryptocurrency.
+maxWithdraw | decimal | Identifies the single maximum withdrawal amount of a cryptocurrency.
+maker_fee | decimal | Fees applied when liquidity is added to the order book.
+taker_fee | decimal | Fees applied when liquidity is removed from the order book.
+                      
+Data example:
+```json
+{
+    "code":"1",
+    "success":true,
+    "msg":null,
+    "data":[
+        {
+            "name":"Ethereum",
+            "unifiedCryptoAssetId":"1027",
+            "canWithdraw":"true",
+            "canDeposit":"true",
+            "minWithdraw":0.1,
+            "maxWithdraw":20,
+            "symbol":"ETH",
+            "makerFee":0.002,
+            "takerFee":0.002
+        },
+        {
+            "name":"Bitcoin",
+            "unifiedCryptoAssetId":"1",
+            "canWithdraw":"true",
+            "canDeposit":"true",
+            "minWithdraw":0.0006,
+            "maxWithdraw":2,
+            "symbol":"BTC",
+            "makerFee":0.002,
+            "takerFee":0.002
+        }
+    ]
+}
+```
+
+## GET /v1/ticker  
+Get a 24-hour pricing and volume summary for each market pair available on the exchange.
+
+Request: None
+
+Response: Object[]
+
+Name | Data type | Description 
+------------ | ------------ | ------------
+tickerId | string | Identifier of a ticker with delimiter to separate base_target, eg. BTC_USDT.
+lastPrice | decimal | Last transacted price of base currency based on given target currency
+baseVolume | decimal | 24-hour trading volume denoted in BASE currency
+targetVolume | decimal | 24 hour trading volume denoted in TARGET currency
+isFrozen | integer | Indicates if the market is currently enabled (0) or disabled (1).
+                      
+Data example:
+```json
+{
+    "code":"1",
+    "success":true,
+    "msg":null,
+    "data":[
+        {
+            "tickerId":"BTC_USDT",
+            "lastPrice":"42065.72",
+            "baseVolume":"1084.92",
+            "targetVolume":"45448520.44",
+            "isFrozen":0
+        },
+        {
+            "tickerId":"ETH_USDT",
+            "lastPrice":"3147.16",
+            "baseVolume":"9659.14",
+            "targetVolume":"30085798.27",
+            "isFrozen":0
+        }
+    ]
 }
 ```
 
@@ -129,9 +209,7 @@ Name | Data type | Description
 ------------ | ------------ | ------------
 tickerId | String | A pair such as "BTC_USDT"
 
-
 Response: Object
-
 
 Name | Data type | Description 
 ------------ | ------------ | ------------
@@ -142,9 +220,6 @@ target_volume | decimal | Transaction amount in target pair volume.
 trade_timestamp | timestamp | Unix timestamp in milliseconds for when the transaction occurred.
 type | string | Used to determine the type of the transaction that was completed. Buy – Identifies an ask that was removed from the order book. Sell – Identifies a bid that was removed from the order book.
                                                                                                 
-                
-
-
 Data example:
 ```
 /* GET /v1/historicalTrades?tickerId=BTC_USDT */
@@ -221,6 +296,38 @@ Data example:
     "high": "49047.4",
     "low": "48493.24"
     }
+}
+```
+
+## GET /v1/pairs  
+Get the list of all exchange pairs.
+
+Request: None
+
+Response: Object[]
+
+Name | Data type | Description 
+------------ | ------------ | ------------
+tickerId | string | Exchange pair name
+base | string | Symbol/currency code of a the base crypto asset, eg. BTC
+target | string | Symbol/currency code of the target crypto asset, eg. USDT
+
+
+Data example:
+```json
+{
+"code": "1",
+"success": true,
+"msg": null,
+"data": [{
+    "tickerId": "ETH_USDT",
+    "base": "ETH",
+    "target": "USDT"
+}, {
+    "tickerId": "BTC_USDT",
+    "base": "BTC",
+    "target": "USDT"
+  }]
 }
 ```
 
