@@ -249,55 +249,6 @@ Data example:
 }
 ```
 
-## GET /v1/ticker
-
-Get the market info
-
-Request:  
-
-Name | Data type | Description 
------------- | ------------ | ------------
-tickerId | string | A pair such as "BTC_USDT"
-
-Response: Object
-
-Name | Data type | Description 
------------- | ------------ | ------------
-tickerId | string | A pair such as "BTC_USDT"
-baseCurrency | string | Symbol/currency code of base pair, eg. BTC
-targetCurrency | string | Symbol/currency code of target pair, eg. USDT
-lastPrice | decimal | 	Last transacted price of base currency based on given target currency
-baseVolume | decimal | 24 hour trading volume in base pair volume
-targetVolume | decimal | 24 hour trading volume in target pair volume
-bid | decimal | Current highest bid price
-ask | decimal | Current lowest ask price
-high | decimal | Rolling 24-hours highest transaction price
-low | decimal | Rolling 24-hours lowest transaction price
-
-Data example:
-```
-/* GET /v1/ticker?tickerId=BTC_USDT */
-```
-```json
-{
-"code": "1",
-"success": true,
-"msg": null,
-"data": {
-    "tickerId": "BTC_USDT",
-    "baseCurrency": "BTC",
-    "targetCurrency": "USDT",
-    "lastPrice": "48527.91",
-    "baseVolume": "229.852284",
-    "targetVolume": "11212881.13491958",
-    "bid": "48735.03",
-    "ask": "45799.32",
-    "high": "49047.4",
-    "low": "48493.24"
-    }
-}
-```
-
 ## GET /v1/pairs  
 Get the list of all exchange pairs.
 
