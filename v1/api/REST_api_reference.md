@@ -8,7 +8,6 @@
   - [GET /v1/ticker](#get-v1ticker)
   - [GET /v1/orderBook](#get-v1orderbook)
   - [GET /v1/historicalTrades](#get-v1historicaltrades)
-  - [GET /v1/ticker](#get-v1ticker-1)
   - [GET /v1/pairs](#get-v1pairs)
 - [Trade API](#trade-api)
   - [GET /v1/user/getBalance](#get-v1usergetbalance)
