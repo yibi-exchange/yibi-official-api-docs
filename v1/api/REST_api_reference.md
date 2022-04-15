@@ -24,6 +24,8 @@ Get the market of all exchange pairs.
 
 Request: None
 
+Url: https://api.yibi.co/v1/summary
+
 Response: Object[]
 
 Name | Data type | Description 
@@ -64,6 +66,8 @@ Data example:
 Get a detailed summary for each currency available on the exchange.
 
 Request: None
+
+Url: https://api.yibi.co/v1/assets
 
 Response: Object[]
 
@@ -117,6 +121,8 @@ Get a 24-hour pricing and volume summary for each market pair available on the e
 
 Request: None
 
+Url: https://api.yibi.co/v1/ticker
+
 Response: Object[]
 
 Name | Data type | Description 
@@ -163,6 +169,8 @@ Name | Data type | Description
 tickerId | string | A pair such as "BTC_USDT"
 depth | integer | (optional)Order depth quantity：[100, 200, 500...]. Depth = 100 means 50 for each buy/sell.
 
+Url: https://api.yibi.co/v1/orderBook?tickerId=BTC_USDT
+
 Response: Object[]
 
 Name | Data type | Description 
@@ -207,6 +215,8 @@ Request:
 Name | Data type | Description 
 ------------ | ------------ | ------------
 tickerId | String | A pair such as "BTC_USDT"
+
+Url: https://api.yibi.co/v1/historicalTrades?tickerId=BTC_USDT
 
 Response: Object
 
