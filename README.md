@@ -10,7 +10,7 @@ https://api.yibi.co
 
 ### Apply for APP_KEY
 
- [Apply for YIBI trading market API_KEY](https://yibi.co/cn/apiManage)
+ [Apply for YIBI trading market API_KEY](https://yibi.co/en/apiManage)
 
 
 ## REST Quotes, Trading API
