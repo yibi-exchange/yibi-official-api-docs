@@ -14,6 +14,7 @@
   - [GET /v1/user/addOrder](#get-v1useraddorder)
   - [GET /v1/user/queryOrder](#get-v1userqueryorder)
   - [GET /v1/user/cancelOrder](#get-v1usercancelorder)
+  - [GET /v1/user/queryTrade](#get-v1userquerytrade)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -362,7 +363,9 @@ data | integer | 订单id
 ------------ | ------------ | ------------
 apiKey | string | 用户申请的API_KEY
 sign | string | 参数签名
-status | string | （可选）状态 -1已撤单 0已下单 1待撮合 2撮合中 3已完成撮合
+pageIndex | integer | 分页页数 (默认 1)
+pageSize | integer | 分页大小 (默认 20; 最大 100.)
+status | string | （可选）状态 -1已撤单 0已下单 1待撮合 2撮合中 3已完成撮合 4当前挂单
 tickerId | string | （可选）市场名称 币种名称后面需要加"_"和板块名称(BTC_USDT)
 
 
@@ -371,6 +374,7 @@ tickerId | string | （可选）市场名称 币种名称后面需要加"_"和�
 参数名 | 类型 | 描述 
 ------------ | ------------ | ------------
 id | integer | 订单id
+symbol | string | 交易对
 type | integer | 订单类型  1buy 2sell
 price | decimal | 价格
 qty | decimal | 下单数量
@@ -392,7 +396,8 @@ status | integer | 状态-1已撤单 0已下单 1待撮合 2撮合中 3已完成
       "id": 1440592,
       "type": 1,
       "tradeQty": 0,
-      "status": 1
+      "status": 1,
+      "symbol": "BTCUSDT"
   }]
 }
 ```
@@ -415,5 +420,63 @@ id | integer | 订单id
   "code": "1",
   "success": true,
   "msg": "撤单成功"
+}
+```
+
+## GET /v1/user/queryTrade
+
+查询成交记录
+
+Request: 
+
+参数名 | 类型 | 描述 
+------------ | ------------ | ------------
+apiKey | string | 用户申请的API_KEY
+sign | string | 参数签名
+pageIndex | integer | 分页页数 (默认 1)
+pageSize | integer | 分页大小 (默认 20; 最大 100.)
+tickerId | string | 交易对例 "BTC_USDT"
+orderId | long | (可选)订单id
+
+
+
+Response: Object
+
+参数名 | 类型 | 描述
+------------ | ------------ | ------------
+id | integer | 成交单id
+orderId | long | 委托单id
+symbol | string | 交易对
+orderType | integer | 委托类型  1 现价买入, 2 现价卖出, 3 市价买入, 4 市价卖出
+price | decimal | 成交价格
+qty | decimal | 成交数量
+quoteQty | decimal | 成交额
+fee | decimal | 手续费
+feeAsset | string | 手续费币种
+isMaker | integer | 成交类型 1 MAKER 2TAKER
+createTime | long | 成交时间
+
+
+Data example:
+```json
+{
+  "code": "1",
+  "success": true,
+  "msg": null,
+  "data": [
+        {
+          "createTime": 1534301500000,
+          "price": 0.045662,
+          "qty": 0.253,
+          "id": 1440592,
+          "orderId": 222555312,
+          "orderType": 1,
+          "quoteQty": 0,
+          "fee": 0.0001,
+          "feeAsset": "BTC",
+          "isMaker": 1,
+          "symbol": "BTCUSDT"
+      }
+  ]
 }
 ```
