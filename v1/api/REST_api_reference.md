@@ -371,7 +371,7 @@ Name | Data type | Description
 ------------ | ------------ | ------------
 apiKey | string | API_KEY applied by the user
 sign | string | Parameter signature
-pageIndex | integer | Page Num
+pageIndex | integer | Page Num (Default 1)
 pageSize | integer | Page size (Default 20; max 100.)
 status | string | (optional)Status: -1 Canceled, 0 Ordered, 1 Wait match, 2 Matching, 3 Matching completed, 4 Currrent Open Order
 tickerId | string | (optional)A pair such as "BTC_USDT"
@@ -442,7 +442,7 @@ Name | Data type | Description
 ------------ | ------------ | ------------
 apiKey | string | API_KEY applied by the user
 sign | string | Parameter signature
-pageIndex | integer | Page Num
+pageIndex | integer | Page Num (Default 1)
 pageSize | integer | Page size (Default 20; max 100.)
 tickerId | string | A pair such as "BTC_USDT"
 orderId | long | (optional)order id
