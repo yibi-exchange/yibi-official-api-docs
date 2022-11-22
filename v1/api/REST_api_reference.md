@@ -14,7 +14,7 @@
   - [GET /v1/user/addOrder](#get-v1useraddorder)
   - [GET /v1/user/queryOrder](#get-v1userqueryorder)
   - [GET /v1/user/cancelOrder](#get-v1usercancelorder)
-  - [GET /v1/user/queryTrade](#get-v1usertradeorder)
+  - [GET /v1/user/queryTrade](#get-v1userquerytradeorder)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
