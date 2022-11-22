@@ -455,13 +455,14 @@ Response: Object
 Name | Data type | Description 
 ------------ | ------------ | ------------
 id | integer | Trade id
+orderId | long | Order id
 symbol | string | A pair such as "BTCUSDT"
 orderType | integer | Order type  1 Buy, 2 Sell, 3 Market buy, 4 Market sell
-price | decimal | Order price
-qty | decimal | Order quantity
-quoteQty | decimal | Order quoteQty
-fee | decimal | Order fee
-feeAsset | string | Order fee asset
+price | decimal | Trade price
+qty | decimal | Trade quantity
+quoteQty | decimal | Trade quoteQty
+fee | decimal | Trade fee
+feeAsset | string | Trade fee asset
 isMaker | integer | 1 MAKER, 2 TAKER
 createTime | long | Trade time
 
@@ -478,6 +479,7 @@ Data example:
           "price": 0.045662,
           "qty": 0.253,
           "id": 1440592,
+          "orderId": 222555312,
           "orderType": 1,
           "quoteQty": 0,
           "fee": 0.0001,
