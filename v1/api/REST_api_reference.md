@@ -14,6 +14,7 @@
   - [GET /v1/user/addOrder](#get-v1useraddorder)
   - [GET /v1/user/queryOrder](#get-v1userqueryorder)
   - [GET /v1/user/cancelOrder](#get-v1usercancelorder)
+  - [GET /v1/user/queryTrade](#get-v1usertradeorder)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -370,19 +371,23 @@ Name | Data type | Description
 ------------ | ------------ | ------------
 apiKey | string | API_KEY applied by the user
 sign | string | Parameter signature
-status | string | (optional)Status: -1 canceled, 0 ordered, 1 wait match, 2 Matching, 3 Matching completed
+pageIndex | integer | Page Num
+pageSize | integer | Page size (Default 20; max 100.)
+status | string | (optional)Status: -1 Canceled, 0 Ordered, 1 Wait match, 2 Matching, 3 Matching completed, 4 Currrent Open Order
 tickerId | string | (optional)A pair such as "BTC_USDT"
+
 
 Response: Object
 
 Name | Data type | Description 
 ------------ | ------------ | ------------
-id | integer | Order id
+id | long | Order id
+symbol | string | A pair such as "BTCUSDT"
 type | integer | Order type  1 buy, 2 sell
 price | decimal | Order price
 qty | decimal | Order quantity
 tradeQty | decimal | Traded quantity
-status | integer | Status: -1 canceled, 0 ordered, 1 wait match, 2 Matching, 3 Matching completed
+status | integer | Status: -1 Canceled, 0 Ordered, 1 Wait match, 2 Matching, 3 Matching completed
 
 
 Data example:
@@ -399,7 +404,8 @@ Data example:
           "id": 1440592,
           "type": 1,
           "tradeQty": 0,
-          "status": 1
+          "status": 1,
+          "symbol": "BTCUSDT"
       }
   ]
 }
@@ -423,5 +429,61 @@ Data example:
   "code": "1",
   "success": true,
   "msg": "cancel success"
+}
+```
+
+## GET /v1/user/queryTrade
+
+Query trade records
+
+Request: 
+
+Name | Data type | Description 
+------------ | ------------ | ------------
+apiKey | string | API_KEY applied by the user
+sign | string | Parameter signature
+pageIndex | integer | Page Num
+pageSize | integer | Page size (Default 20; max 100.)
+tickerId | string | A pair such as "BTC_USDT"
+orderId | long | (optional)order id
+
+
+
+Response: Object
+
+Name | Data type | Description 
+------------ | ------------ | ------------
+id | integer | Trade id
+symbol | string | A pair such as "BTCUSDT"
+orderType | integer | Order type  1 Buy, 2 Sell, 3 Market buy, 4 Market sell
+price | decimal | Order price
+qty | decimal | Order quantity
+quoteQty | decimal | Order quoteQty
+fee | decimal | Order fee
+feeAsset | string | Order fee asset
+isMaker | integer | 1 MAKER, 2 TAKER
+createTime | string | Trade time
+
+
+Data example:
+```json
+{
+  "code": "1",
+  "success": true,
+  "msg": null,
+  "data": [
+        {
+          "createTime": "2020-01-01 12:00:00",
+          "price": 0.045662,
+          "qty": 0.253,
+          "id": 1440592,
+          "orderType": 1,
+          "quoteQty": 0,
+          "fee": 0.0001,
+          "feeAsset": "BTC",
+          "isMaker": 1,
+          "symbol": "BTCUSDT"
+      }
+  ]
 }
 ```
