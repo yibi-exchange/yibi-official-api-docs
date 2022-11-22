@@ -388,6 +388,7 @@ price | decimal | Order price
 qty | decimal | Order quantity
 tradeQty | decimal | Traded quantity
 status | integer | Status: -1 Canceled, 0 Ordered, 1 Wait match, 2 Matching, 3 Matching completed
+createTime | long | Order time
 
 
 Data example:
@@ -462,7 +463,7 @@ quoteQty | decimal | Order quoteQty
 fee | decimal | Order fee
 feeAsset | string | Order fee asset
 isMaker | integer | 1 MAKER, 2 TAKER
-createTime | string | Trade time
+createTime | long | Trade time
 
 
 Data example:
@@ -473,7 +474,7 @@ Data example:
   "msg": null,
   "data": [
         {
-          "createTime": "2020-01-01 12:00:00",
+          "createTime": 1534301500000,
           "price": 0.045662,
           "qty": 0.253,
           "id": 1440592,
