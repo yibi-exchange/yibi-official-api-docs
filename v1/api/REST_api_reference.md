@@ -350,7 +350,7 @@ Response: Object
 
 Name | Data type | Description 
 ------------ | ------------ | ------------
-data | integer | Order id
+data | long | Order id
 
 Data example:
 ```json
