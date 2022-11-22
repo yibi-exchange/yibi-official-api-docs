@@ -341,7 +341,7 @@ Name | Data type | Description
 apiKey | string | API_KEY applied by the user
 sign | string | Parameter signature
 tickerId | string | A pair such as "BTC_USDT"
-type | string |  1 buy, 2 sell
+type | integer |  1 buy, 2 sell
 price | string | Order price
 qty | string | Order quantity
 
