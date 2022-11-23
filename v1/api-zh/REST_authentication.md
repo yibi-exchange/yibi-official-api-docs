@@ -86,12 +86,12 @@ https://api.yibi.co/v1/user/orders?apiKey=abcdabcd1234&market=BTC/USDT&price=500
      * md5签名
      * 按参数名称升序，将参数值进行连接、签名
      */
-    public static String sign(String appSecret, TreeMap<String, String> params) {
-        StringBuilder paramValues = new StringBuilder();
-        params.put("appSecret", appSecret);
+    public static String sign(String apiSecret, TreeMap<String, String> params) {
+        StringBuilder stringBuilder = new StringBuilder();
+        params.put("apiSecret", apiSecret);
         for (Map.Entry<String, String> entry : params.entrySet()) {
-            paramValues.append(entry.getValue());
+            stringBuilder.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
         }
-        return md5(paramValues.toString());
+        return md5(stringBuilder.substring(0, stringBuilder.length() - 1));
     }
 ```
