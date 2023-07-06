@@ -7,7 +7,7 @@
   - [GET /v1/assets](#get-v1assets)
   - [GET /v1/ticker](#get-v1ticker)
   - [GET /v1/orderbook/market_pair](#get-v1orderbookmarket_pair)
-  - [GET /v1/trades/market_pair](#get-v1historicaltradesmarket_pair)
+  - [GET /v1/trades/market_pair](#get-v1tradesmarket_pair)
   - [GET /v1/pairs](#get-v1pairs)
 - [Trade API](#trade-api)
   - [GET /v1/user/getBalance](#get-v1usergetbalance)
