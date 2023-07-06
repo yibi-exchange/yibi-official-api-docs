@@ -6,8 +6,8 @@
   - [GET /v1/summary](#get-v1summary)
   - [GET /v1/assets](#get-v1assets)
   - [GET /v1/ticker](#get-v1ticker)
-  - [GET /v1/orderBook](#get-v1orderbook)
-  - [GET /v1/historicalTrades](#get-v1historicaltrades)
+  - [GET /v1/orderbook/market_pair](#get-v1orderbookmarket_pair)
+  - [GET /v1/trades/market_pair](#get-v1historicaltradesmarket_pair)
   - [GET /v1/pairs](#get-v1pairs)
 - [Trade API](#trade-api)
   - [GET /v1/user/getBalance](#get-v1usergetbalance)
@@ -31,36 +31,33 @@ Response: Object[]
 
 Name | Data type | Description 
 ------------ | ------------ | ------------
-tickerId | string | Identifier of a ticker with delimiter to separate base_target, eg. BTC_USDT
-baseCurrency | string | Symbol/currency code of base pair, eg. BTC
-targetCurrency | string | Symbol/currency code of target pair, eg. USDT
-lastPrice | decimal | 	Last transacted price of base currency based on given target currency
-baseVolume | decimal | 24 hour trading volume in base pair volume
-targetVolume | decimal | 24 hour trading volume in target pair volume
-bid | decimal | Current highest bid price
-ask | decimal | Current lowest ask price
-high | decimal | Rolling 24-hours highest transaction price
-low | decimal | Rolling 24-hours lowest transaction price
+trading_pairs | string | Identifier of a ticker with delimiter to separate base_target, eg. BTC_USDT
+base_currency | string | Symbol/currency code of base pair, eg. BTC
+quote_currency | string | Symbol/currency code of target pair, eg. USDT
+last_price | decimal | 	Last transacted price of base currency based on given target currency
+base_volume | decimal | 24 hour trading volume in base pair volume
+quote_volume | decimal | 24 hour trading volume in target pair volume
+highest_bid | decimal | Current highest bid price
+lowest_ask | decimal | Current lowest ask price
+highest_price_24h | decimal | Rolling 24-hours highest transaction price
+lowest_price_24h | decimal | Rolling 24-hours lowest transaction price
+price_change_percent_24h | decimal | 24-hr % price change of market pair
 
 Data example:
 ```json
-{
-"code": "1",
-"success": true,
-"msg": null,
-"data": [{
-    "tickerId": "BTC_USDT",
-    "baseCurrency": "BTC",
-    "targetCurrency": "USDT",
-    "lastPrice": "48527.91",
-    "baseVolume": "229.852284",
-    "targetVolume": "11212881.13491958",
-    "bid": "48735.03",
-    "ask": "45799.32",
-    "high": "49047.4",
-    "low": "48493.24"
-    }]
-}
+[{
+    "trading_pairs": "XRP_BTC",
+    "last_price": 0.0000203,
+    "lowest_ask": 0.0000213,
+    "highest_bid": 0.0000202,
+    "base_volume": 350700,
+    "quote_volume": 7.139649999999999,
+    "price_change_percent_24h": -0.49019607843137253,
+    "highest_price_24h": 0.0000204,
+    "lowest_price_24h": 0.0000203
+  }
+]
+
 ```
 
 ## GET /v1/assets  
@@ -76,45 +73,44 @@ Name | Data type | Description
 ------------ | ------------ | ------------
 name | string | Full name of cryptocurrency.
 symbol | string | currency code, eg. BTC
-unifiedCryptoAssetId | integer | Unified cryptoasset id.
-canWithdraw | boolean | Identifies whether withdrawals are enabled or disabled.
-canDeposit | boolean | 	Identifies whether deposits are enabled or disabled.
-minWithdraw | decimal | Identifies the single minimum withdrawal amount of a cryptocurrency.
-maxWithdraw | decimal | Identifies the single maximum withdrawal amount of a cryptocurrency.
+unified_cryptoasset_id | integer | Unified cryptoasset id.
+can_withdraw | boolean | Identifies whether withdrawals are enabled or disabled.
+can_deposit | boolean | 	Identifies whether deposits are enabled or disabled.
+min_withdraw | decimal | Identifies the single minimum withdrawal amount of a cryptocurrency.
+max_withdraw | decimal | Identifies the single maximum withdrawal amount of a cryptocurrency.
 maker_fee | decimal | Fees applied when liquidity is added to the order book.
 taker_fee | decimal | Fees applied when liquidity is removed from the order book.
-                      
+contractAddressUrl | string | URL of contract address on each chain.
+contractAddress | string | Contract address of the asset on each chain.
+                    
 Data example:
 ```json
-{
-    "code":"1",
-    "success":true,
-    "msg":null,
-    "data":[
-        {
-            "name":"Ethereum",
-            "unifiedCryptoAssetId":"1027",
-            "canWithdraw":"true",
-            "canDeposit":"true",
-            "minWithdraw":0.1,
-            "maxWithdraw":20,
-            "symbol":"ETH",
-            "makerFee":0.002,
-            "takerFee":0.002
-        },
-        {
-            "name":"Bitcoin",
-            "unifiedCryptoAssetId":"1",
-            "canWithdraw":"true",
-            "canDeposit":"true",
-            "minWithdraw":0.0006,
-            "maxWithdraw":2,
-            "symbol":"BTC",
-            "makerFee":0.002,
-            "takerFee":0.002
-        }
-    ]
+{  
+   "BTC":{  
+      "name":"bitcoin",
+      "unified_cryptoasset_id" :"1",
+      "can_withdraw":"true",
+      "can_deposit":"true",
+      "min_withdraw":"0.01",
+      "max_withdraw ":"100" 
+      "name":"bitcoin",
+      "maker_fee":"0.01",
+      "taker_fee":"0.01",
+   },
+   "ETH":{  
+      "name":"arbitrum",
+      "unified_cryptoasset_id":"11841",
+      "can_withdraw":"false",
+      "can_deposit":"false",
+      "min_withdraw":"10.00",
+      "max_withdraw ":"0.00" 
+      "maker_fee":"0.01",
+      "taker_fee":"0.01",
+      "contractAddressUrl": "https://arbiscan.io/token/0x912CE59144191C1204E64559FE8253a0e49E6548",
+      "contractAddress": "0x912CE59144191C1204E64559FE8253a0e49E6548"
+   }
 }
+
 ```
 
 ## GET /v1/ticker  
@@ -128,38 +124,45 @@ Response: Object[]
 
 Name | Data type | Description 
 ------------ | ------------ | ------------
-tickerId | string | Identifier of a ticker with delimiter to separate base_target, eg. BTC_USDT.
-lastPrice | decimal | Last transacted price of base currency based on given target currency
-baseVolume | decimal | 24-hour trading volume denoted in BASE currency
-targetVolume | decimal | 24 hour trading volume denoted in TARGET currency
+base_id | integer | The quote pair Unified Cryptoasset ID.
+quote_id | integer | The base pair Unified Cryptoasset ID.
+last_price | decimal | Last transacted price of base currency based on given target currency
+base_volume | decimal | 24-hour trading volume denoted in BASE currency
+quote_volume | decimal | 24 hour trading volume denoted in TARGET currency
 isFrozen | integer | Indicates if the market is currently enabled (0) or disabled (1).
                       
 Data example:
 ```json
-{
-    "code":"1",
-    "success":true,
-    "msg":null,
-    "data":[
-        {
-            "tickerId":"BTC_USDT",
-            "lastPrice":"42065.72",
-            "baseVolume":"1084.92",
-            "targetVolume":"45448520.44",
-            "isFrozen":0
-        },
-        {
-            "tickerId":"ETH_USDT",
-            "lastPrice":"3147.16",
-            "baseVolume":"9659.14",
-            "targetVolume":"30085798.27",
-            "isFrozen":0
-        }
-    ]
+{  
+   "BTC_USDT":{  
+      "base_id":"1",
+      "quote_id":"825",
+      "last_price":"10000",
+      "quote_volume":"20000",
+      "base_volume":"2",   
+      "isFrozen":"0"
+   },
+   "LTC_BTC":{  
+      "base_id":"2",
+      "quote_id":"1",
+      "last_price":"0.00699900",
+      "base_volume":"20028,526",
+      "quote_volume":"279594",
+      "isFrozen":"0"
+   },
+"BNB_BTC":{  
+      "base_id":"1839",
+      "quote_id":"1",
+      "last_price":"0.00699900",
+      "base_volume":"53819",
+      "quote_volume":"99.3459",      
+      "isFrozen":"0"
+   }
 }
+
 ```
 
-## GET /v1/orderBook
+## GET /v1/orderbook/market_pair
 
 Order book depth details
 
@@ -167,32 +170,27 @@ Request:
 
 Name | Data type | Description 
 ------------ | ------------ | ------------
-tickerId | string | A pair such as "BTC_USDT"
+market_pair | string | A pair such as "BTC_USDT"
 depth | integer | (optional)Order depth quantity：[100, 200, 500...]. Depth = 100 means 50 for each buy/sell.
 
-Url: https://api.yibi.co/v1/orderBook?tickerId=BTC_USDT
+Url: https://api.yibi.co/v1/orderbook/BTC_USDT
 
 Response: Object[]
 
 Name | Data type | Description 
 ------------ | ------------ | ------------
-tickerId | string | A pair such as "BTC_USDT"
 timestamp | timestamp | Unix timestamp in milliseconds for when the last updated time occurred.
 bids | decimal | An array containing 2 elements. The offer price and quantity for each bid order
 asks | decimal | An array containing 2 elements. The ask price and quantity for each ask order
-
+tickerId | string | Identifier of a ticker with delimiter to separate base_target, eg. BTC_USDT
 
 
 Data example:
 ```
-/* GET /v1/orderBook?tickerId=BTC_USDT */
+/* GET /v1/orderbook/BTC_USDT */
 ```
 ```json
 {
-"code": "1",
-"success": true,
-"msg": null,
-"data": {
     "tickerId": "BTC_USDT",
     "timestamp": "1639473000000",
     "bids": [
@@ -204,10 +202,9 @@ Data example:
         ["48735.07", "0.108152"]
      ]
   }
-}
 ```
 
-## GET /v1/historicalTrades
+## GET /v1/trades/market_pair
 
 Transaction records
 
@@ -215,49 +212,37 @@ Request:
 
 Name | Data type | Description 
 ------------ | ------------ | ------------
-tickerId | String | A pair such as "BTC_USDT"
+market_pair | String | A pair such as "BTC_USDT"
 
-Url: https://api.yibi.co/v1/historicalTrades?tickerId=BTC_USDT
+Url: https://api.yibi.co/v1/trades/BTC_USDT
 
 Response: Object
 
 Name | Data type | Description 
 ------------ | ------------ | ------------
-tradeId | int | Records id
+trade_id | int | Records id
 price | decimal | Transaction price in base pair volume.
 base_volume | decimal | Transaction amount in base pair volume.
-target_volume | decimal | Transaction amount in target pair volume.
-trade_timestamp | timestamp | Unix timestamp in milliseconds for when the transaction occurred.
-type | string | Used to determine the type of the transaction that was completed. Buy – Identifies an ask that was removed from the order book. Sell – Identifies a bid that was removed from the order book.
+quote_volume | decimal | Transaction amount in target pair volume.
+timestamp | timestamp | Unix timestamp in milliseconds for when the transaction occurred.
+type | string | Used to determine the type of the transaction that was completed. buy – Identifies an ask that was removed from the order book. sell – Identifies a bid that was removed from the order book.
                                                                                                 
 Data example:
 ```
 /* GET /v1/historicalTrades?tickerId=BTC_USDT */
 ```
 ```json
-{
-"code": "1",
-"success": true,
-"msg": null,
-"data": {
-    "buy": [{
-        "trade_id": 187317363,
-        "price": 293392.99,
-        "base_volume": 0.000146,
-        "target_volume": 42.83537654,
-        "trade_timestamp": 1639470864000,
-        "type": "buy"
-}],
-    "sell": [{
-        "trade_id": 187314280,
-        "price": 297323.2,
-        "base_volume": 0.45152,
-        "target_volume": 134247.37126400,
-        "trade_timestamp": 1639470624000,
-        "type": "sell"
-    }]
-  }
-}
+[   
+   {         
+      "trade_id":3523643,
+      "price":"0.01",
+      "base_volume":"569000",
+      "quote_volume":"0.01000000",
+      "timestamp":"‭1585177482652‬",
+      "type":"sell"
+   }
+]
+
 ```
 
 ## GET /v1/pairs  
